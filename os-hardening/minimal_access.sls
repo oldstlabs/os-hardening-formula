@@ -16,10 +16,16 @@ etc-shadow-file:
     - name: /etc/shadow
     - user: root
     - group: root
-    - mode: 0600
+    - mode: '0600'
 {% if hardening.allow_change_user %}
 allow-change-user:
   file.managed:
     - name: /bin/su
-    - mode: 0750
+    - mode: '0750'
+{% endif %}
+{% if hardening.allow_sudo %}
+allow-change-user:
+  file.managed:
+    - name: /bin/su
+    - mode: '4755'
 {% endif %}
